@@ -33,7 +33,11 @@ def popular_movies(limit: int = 3): # 가져올 인기 영화 개수를 제한�
         "accept": "application/json",
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYzBkODQ3NTkxNTE5MWY4MDIzNjk4ZDYzZmQ0NTFmYSIsInN1YiI6IjY2NDMxMjg0MWIwZTliMWQ0OTE4NGFlZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fGmyqhdUVVa3IaIzZbHkqyxncNlYxFkUFhzPA0soXKo"
     } # API 요청 헤더에는 API 읽기 엑세스 토큰을 포함
-    response = requests.get(url, headers=headers).json()  # API 요청을 보내고 응답을 JSON 형식으로 변환
-    return response['results'][:limit] # API 응답 중 'results' 키의 값을 반환
+    
+    response = requests.get(url, headers=headers)  # API 요청을 보내고 응답을 저장
+    
+    
+
+    return response.json()['results'][:limit] # API 응답 중 'results' 키의 값 json 형식으로 변환시켜 반환
 
 app.include_router(api_router, prefix="/api")  # api_router를 /api 경로에 포함
