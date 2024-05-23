@@ -36,7 +36,8 @@ def popular_movies(limit: int = 3): # 가져올 인기 영화 개수를 제한�
     
     response = requests.get(url, headers=headers)  # API 요청을 보내고 응답을 저장
     
-    
+    if response.status_code != 200: # 응답이 성공적이지 않은 경우
+        return {"Error": "Failed to fetch data"}
 
     return response.json()['results'][:limit] # API 응답 중 'results' 키의 값 json 형식으로 변환시켜 반환
 
