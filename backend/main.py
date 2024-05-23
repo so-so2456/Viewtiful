@@ -1,5 +1,5 @@
 import os 
-import requests
+import httpx
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -27,19 +27,17 @@ api_token = os.getenv('TMDB_API_TOKEN') # 환경 변수에서 API TOKEN 가져�
 
 api_router = APIRouter()  # API 경로를 관리할 APIRouter 인스턴스 생성
 
-@api_router.get("/post/{pk}")  # /post/{pk} 경로에 GET 요청을 처리하는 엔드포인트 정의
-def index(pk: int):  # pk라는 정수형 경로 매개변수를 받는 함수 정의
-    return {"data": pk}  # pk 값을 반환
-
 @api_router.get("/")  # / 경로에 GET 요청을 처리하는 엔드포인트 정의
-def popular_movies(limit: int = 3): # 가져올 인기 영화 개수를 제한하는 limit 정수형 쿼리 매개변수를 받는 함수 정의
+#인기 영화들의 정보를 json 형식으로 반환하는 함수
+async def popular_movies(limit: int = 3): # 가져올 개수 매개변수를 받는 함수 정의
     url = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1" # 영화 정보를 가져올 API URL
     headers = { # API 요청 헤더
         "accept": "application/json",
         "Authorization": f"Bearer {api_token}"
     } # API 요청 헤더에는 API 읽기 엑세스 토큰을 포함
     
-    response = requests.get(url, headers=headers)  # API 요청을 보내고 응답을 저장
+    async with httpx.AsyncClient() as client: # 비동기 HTTP 클라이언트 생성
+       response = await client.get(url, headers=headers) # API 요청을 보내고 응답 저장
     
     if response.status_code != 200: # 응답이 성공적이지 않은 경우
         return {"Error": "Failed to fetch data"}
