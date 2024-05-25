@@ -26,6 +26,30 @@ app.add_middleware(
 
 api_token = os.getenv('TMDB_API_TOKEN') # 환경 변수에서 API TOKEN 가져오기
 
+genres = {
+    28: '액션',
+    12: '모험',
+    16: '애니메이션',
+    35: '코미디',
+    80: '범죄', 
+    99: '다큐멘터리',
+    18: '드라마',
+    10751: '가족',
+    14: '판타지',
+    36: '역사',
+    27: '공포',
+    10402: '음악',
+    9648: '미스터리',
+    10749: '로맨스',
+    878: 'SF',
+    10770: 'TV 영화',
+    53: '스릴러',
+    10752: '전쟁',
+    37: '서부'
+}
+
+
+
 api_router = APIRouter()
 
 @api_router.get("/post/{pk}")
@@ -43,7 +67,7 @@ def index(pk: int):
 async def search(query: str):
     # 사용 방법: http://127.0.0.1:8000/api/search?query=검색어
 
-    # 검색어를 입력했을 때 정보를 가져올 URL
+    # 검색어를 입력했을 때 정보를 가져올 URL   
     url = f"https://api.themoviedb.org/3/search/movie?query={query}&include_adult=false&language=ko-kr&page=1"
 
     # API 요청 헤더
@@ -59,7 +83,30 @@ async def search(query: str):
     
     if response.status_code != 200: 
         # 응답이 성공적이지 않은 경우
-        return {"Error": "Failed to fetch data"}
+        return {"Error": "Failed to fetch movie information data"}
+
+
+    results_return = []
+    results = response.json()['results']
+    for result in results:
+        genre_names = []
+        genre_ids = result['genre_ids']
+
+        # print(genre_ids)
+        # convert id to film name
+
+        for genre_id in genre_ids:
+            try:
+                genre_name = genres[genre_id]
+                genre_names.append(genre_name)
+            except:
+                print("Error genre id:", genre_id)
+
+        result['genre_name'] = genre_names
+
+        results_return.append(result)
+
+
 
 
     """
@@ -81,7 +128,7 @@ async def search(query: str):
     "vote_count": 투표 수
     """
 
-    return response.json()['results'] # API 응답 중 'results' 키의 값 json 형식으로 변환시켜 반환
+    return results_return # API 응답 중 'results' 키의 값 json 형식으로 변환시켜 반환
 
 
 app.include_router(api_router, prefix="/api")
