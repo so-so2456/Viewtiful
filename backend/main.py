@@ -27,7 +27,7 @@ api_token = os.getenv('TMDB_API_TOKEN') # 환경 변수에서 API TOKEN 가져�
 
 api_router = APIRouter()  # API 경로를 관리할 APIRouter 인스턴스 생성
 
-@api_router.get("/")  # / 경로에 GET 요청을 처리하는 엔드포인트 정의
+@api_router.get("/popular_movies")  # /popular_movies 경로에 GET 요청을 처리하는 엔드포인트 정의
 #인기 영화들의 정보를 json 형식으로 반환하는 함수
 async def popular_movies(limit: int = 3): # 가져올 개수 매개변수를 받는 함수 정의
     url = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1" # 영화 정보를 가져올 API URL
