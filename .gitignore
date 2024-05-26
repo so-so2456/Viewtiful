@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 .python-version
 .env
 __pycache__/
+=======
+.env
+>>>>>>> develop
