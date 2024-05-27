@@ -1,29 +1,22 @@
 <script>
-	let number;
-	let inputNumber;
+	import Router from 'svelte-spa-router';
+	import Home from './screens/Home.svelte';
+	import Search from './screens/Search.svelte';
+  import Navigator from './widgets/Navigator.svelte';
 
-	const request = async (endpoint) => {
-		const resp = await fetch(
-			`http://localhost:8000/api${endpoint}`
-		);
-		const result = await resp.json();
-		return result;
+	/*
+	use:link 속성을 사용한 경우는 항상 /# 문자가 선행되도록 경로가 만들어진다.
+	웹 페이지에서 어떤 경로가 /#으로 시작하면 브라우저는 이 경로를 하나의 페이지로 인식한다.
+	이러한 것을 해시 기반 라우팅(hash based routing)이라고 한다.
+	*/
+	const routes = {
+		'/': Home,
+		'/search': Search,
 	};
 
-	const getNumberFromBackend = async (no) => {
-		const result = await request(`/post/${no}`);
-		number = result.data;
-	}
 </script>
 
-<main>
-	<h1>Fast Blog</h1>
-	<p>We are building our blog using FastAPI and Svelte!</p>
-	<p>response number: {number || ''}</p>
-	<input bind:value={inputNumber}/>
-	<button type="button" on:click={() => getNumberFromBackend(inputNumber)}>submit</button>
-</main>
-
-<style>
-	h1 {color: brown;}
-</style>
+<body>
+	<Navigator />
+	<Router {routes} />
+</body>
