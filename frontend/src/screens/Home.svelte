@@ -16,6 +16,12 @@
 	}
 	$: searchRequest = searchMoviesWithQuery(query);
 
+	function goToSearch(id) {
+		if (!id) return;
+		const url = `http://localhost:8080/#/search?id=${id}`;
+		window.location.href = url;
+	}
+
 </script>
 <main class="home">
 <nav class="home__navigator">
@@ -29,8 +35,10 @@
 		<h5>find your best movie!</h5>
 	</section>
 </header>
-<section class="home__search_bar">
-	<input type="text" bind:value={query}>
+<form class="home__search_bar" on:submit|preventDefault={() => {goToSearch(preResults[0].id)}}>
+	<label>
+		<input type="text" bind:value={query}>
+	</label>
 	{#await searchRequest}
 		{#each preResults as result}
 			<article class="home__search_bar__result_container">
@@ -40,13 +48,14 @@
 	{:then results}
 		{#if results}
 			{#each results as result}
-				<article class="home__search_bar__result_container">
+				<article class="home__search_bar__result_container" on:click={()=>goToSearch(result.id)}>
+					<img class="home__popular_movie__container__movie__img" src={img_url + result.poster_path} alt="{result.title}" width="94" height="150" />
 					<p class="home__search_bar__result_container__title">{result.title}</p>
 				</article>
 			{/each}
 		{/if}
 	{/await}
-</section>
+</form>
 <section class="home__popular_movie">
 	<h1>인기영화 Top 3</h1>
 	<section class="home__popular_movie__container">
@@ -54,7 +63,7 @@
 			<p>Loading...</p>
 		{:then movies}
 			{#each movies as movie}
-				<article class="home__popular_movie__container__movie">
+				<article class="home__popular_movie__container__movie" on:click={()=>goToSearch(movie.id)}>
 					<img class="home__popular_movie__container__movie__img" src={img_url + movie.poster_path} alt="{movie.title}" width="185" height="300" />
 					<p class="home__popular_movie__container__movie__title">{movie.title}</p>
 				</article>
