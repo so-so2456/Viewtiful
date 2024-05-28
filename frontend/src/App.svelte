@@ -16,7 +16,5 @@
 
 </script>
 
-<body>
-	<Navigator />
-	<Router {routes} />
-</body>
+<Navigator />
+<Router {routes} />
