@@ -3,16 +3,19 @@
   let movieTitle = '';
   let movieInfo = null;
 
+  const img_url = "https://cdn-icons-png.freepik.com/512/2311/2311526.png";
+  
   async function fetchMovieInfo() {
     try {
       const response = await fetch(`http://localhost:8000/api/search?query=${movieTitle}`);
       const data = await response.json();
-      console.log(data); 
-      movieInfo = data[0]; 
+      console.log(data); // Debugging line
+      movieInfo = data[0]; // 첫 번째 결과를 사용한다고 가정
     } catch (error) {
       console.error('Error fetching movie info:', error);
     }
   }
+
   onMount(fetchMovieInfo);
 </script>
 
@@ -28,7 +31,9 @@
     </nav>
     <div class="search-bar">
       <input bind:value={movieTitle} placeholder="영화 제목을 입력하세요">
-      <button type="button" on:click={fetchMovieInfo}>검색</button>
+      <button type="button" on:click={fetchMovieInfo}>
+        <img src={img_url} alt="검색 아이콘" class="search-button-icon">
+      </button> 
     </div>
   </header>
 
@@ -46,7 +51,7 @@
         <hr>
         <h3 class="summary_heading">개요</h3>
         <p>{movieInfo.overview}</p>
-
+        <!-- 다른 영화 정보들을 여기에 추가합니다 -->
       </div>
       <div class="movie_poster">
         <img src={`https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`} alt={movieInfo.original_title} />
@@ -100,25 +105,35 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      background-color: white;
+      border-radius: 30px;
+      padding: 3px 8px; /* 높이를 줄이기 위해 패딩 값을 줄임 */
+      width: 100%;
+      max-width: 320px; /* 검색바의 최대 너비 설정 */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border: 2px solid #A56CEF; /* 얇은 보라색 테두리 추가 */
   }
 
-  input {
-      padding: 5px 30px;
-      border-radius: 20px;
-      border: 1px solid #ccc;
-  }
-
-  button {
-      padding: 5px 10px;
-      border-radius: 5px;
+  .search-bar input {
+      flex: 1;
       border: none;
-      background-color: #A56CEF;
-      color: white;
-      cursor: pointer;
+      outline: none;
+      padding: 5px 10px; /* 높이를 줄이기 위해 패딩 값을 줄임 */
+      border-radius: 30px;
+      font-size: 16px;
   }
 
-  button:hover {
-      background-color: #8e52d9;
+  .search-bar button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+  }
+
+  .search-bar button img {
+      width: 24px;
+      height: 24px;
   }
 
   /* 영화 정보 섹션 스타일 */
