@@ -2,7 +2,6 @@
 	import Router from 'svelte-spa-router';
 	import Home from './screens/Home.svelte';
 	import Search from './screens/Search.svelte';
-  import Navigator from './widgets/Navigator.svelte';
 
 	/*
 	use:link 속성을 사용한 경우는 항상 /# 문자가 선행되도록 경로가 만들어진다.
@@ -16,7 +15,13 @@
 
 </script>
 
-<body>
-	<Navigator />
-	<Router {routes} />
-</body>
+<Router {routes} />
+
+<style>
+	:global(body) {   
+		background-color: #1A1C23;  
+		margin: 0;
+		padding: 0; 
+		overflow-x: hidden
+	}
+</style>
