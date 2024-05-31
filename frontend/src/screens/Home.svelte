@@ -1,32 +1,37 @@
 <script>
+	// 아이콘
 	import search from 'svelte-awesome/icons/search';
 	import film from 'svelte-awesome/icons/film';
 	import Icon from 'svelte-awesome/components/Icon.svelte';
 
+	export let onSubmit; // App.svelte에서 정의한 onSubmit 함수
+
+	// 이미지 외부 링크
 	const img_url = "https://image.tmdb.org/t/p/w185";
 	
+	// 인기 영화 api 호출
 	async function getPopularMovies() {
 		const url = "http://localhost:8000/api/popular_movies";
 		return await fetch(url).then((res) => res.json());
 	}
+	
 	let moviesRequest = getPopularMovies();
 
-	let query = '';
-	let preResults = [];
+	let query = ''; // 검색어
+	let preResults = []; // blink 현상을 방지하기 위해, 전에 검색 결과를 따로 저장해놓음
+
+	// query에 따른 영화 검색 api 호출
 	async function searchMoviesWithQuery(query) {
 	const url = `http://localhost:8000/api/search?query=${query}`;
 	return await fetch(url).then((res) => res.json())
 	.then((data) => preResults = data);
 	}
+	// 변수인 query에 의해 값이 변경되므로 $ statement 사용
 	$: searchRequest = searchMoviesWithQuery(query);
 
-	function goToSearch(id) {
-		if (!id) return;
-		const url = `http://localhost:8080/#/search?id=${id}`;
-		window.location.href = url;
-	}
-
 </script>
+
+<!-- class 이름이 곧 주석 -->
 <main class="home">
 <nav class="home__navigator">
 	<a href="#" class="home__navigator__page1">Page</a>
@@ -39,7 +44,7 @@
 		<h5>Find your best movie!</h5>
 	</section>
 </header>
-<form class="home__search" on:submit|preventDefault={() => {goToSearch(preResults[0].id)}}>
+<form class="home__search" on:submit|preventDefault={() => {onSubmit(preResults[0])}}>
 	<section class="home__search__bar">
 		<Icon class="home__search__bar__film" data={film} scale="2" color="#1A1C23"/>
 		<input class="home__search__bar__input" type="text" bind:value={query}>
@@ -55,7 +60,7 @@
 		{:then results}
 			{#if results}
 				{#each results as result}
-					<article class="home__search__result_container" on:click={()=>goToSearch(result.id)}>
+					<article class="home__search__result_container" on:click={() => {onSubmit(result)}}>
 						<img class="home__search__result_container__img" src={img_url + result.poster_path} alt="{result.title}" width="94" height="150" />
 						<p class="home__search__result_container__title">{result.title}</p>
 					</article>
@@ -71,7 +76,7 @@
 			<p>Loading...</p>
 		{:then movies}
 			{#each movies as movie}
-				<article class="home__popular_movie__container__movie" on:click={()=>goToSearch(movie.id)}>
+				<article class="home__popular_movie__container__movie" on:click={() => {onSubmit(movie)}}>
 					<img class="home__popular_movie__container__movie__img" src={img_url + movie.poster_path} alt="{movie.title}" width="185" height="300" />
 					<p class="home__popular_movie__container__movie__title">{movie.title}</p>
 				</article>
