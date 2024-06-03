@@ -143,6 +143,26 @@ async def popular_movies(limit: int = 3): # 가져올 개수 매개변수를 받
     if response.status_code != 200: # 응답이 성공적이지 않은 경우
         return {"Error": "Failed to fetch data"}
 
-    return response.json()['results'][:limit] # API 응답 중 'results' 키의 값 json 형식으로 변환시켜 반환
+    results_return = [] # 결과를 저장할 새로운 리스트 선언
+    results = response.json()['results']  # API로 호출한 결과값을 results 변수에 저장
+    for result in results:  # 반환받은 영화들을 하나씩 반복하면서 장르 id를 장르명으로 변환
+
+        genre_names = []  # 장르명을 저장할 리스트 선언
+        genre_ids = result['genre_ids'] # 호출 결과에서 장르 id 담은 리스트 불러오기
+
+        for genre_id in genre_ids:  # 장르 id를 장르명으로 변환
+            try:  # 장르 id를 key로 하여 genres 딕셔너리 조회 후 genre_names에 추가
+                genre_name = genres[genre_id]
+                genre_names.append(genre_name)
+            except:  # 장르 id에 해당하는 장르명이 존재하지 않을 경우, 에러 메시지 출력
+                print("Error genre id:", genre_id)
+
+        result['genre_names'] = genre_names # 반환된 결과값에 새로 genre_names을 추가
+        
+        results_return.append(result) # 최종적으로 반환할 리스트에 결과 추가
+
+    return results_return # API 응답 중 'results' 키의 값과 장르 id를 장르명으로 매핑한 결과값 반환
+
+
 
 app.include_router(api_router, prefix="/api")  # api_router를 /api 경로에 포함

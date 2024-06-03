@@ -4,6 +4,7 @@ var app = (function () {
     'use strict';
 
     function noop() { }
+<<<<<<< HEAD
     function assign(tar, src) {
         // @ts-ignore
         for (const k in src)
@@ -15,6 +16,8 @@ var app = (function () {
     function is_promise(value) {
         return !!value && (typeof value === 'object' || typeof value === 'function') && typeof value.then === 'function';
     }
+=======
+>>>>>>> develop
     function add_location(element, file, line, column, char) {
         element.__svelte_meta = {
             loc: { file, line, column, char }
@@ -46,6 +49,7 @@ var app = (function () {
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
+<<<<<<< HEAD
     function create_slot(definition, ctx, $$scope, fn) {
         if (definition) {
             const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
@@ -113,6 +117,8 @@ var app = (function () {
         : typeof globalThis !== 'undefined'
             ? globalThis
             : global);
+=======
+>>>>>>> develop
     function append(target, node) {
         target.appendChild(node);
     }
@@ -142,8 +148,9 @@ var app = (function () {
     function space() {
         return text(' ');
     }
-    function empty() {
-        return text('');
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
     }
     function listen(node, event, handler, options) {
         node.addEventListener(event, handler, options);
@@ -173,9 +180,12 @@ var app = (function () {
     function set_input_value(input, value) {
         input.value = value == null ? '' : value;
     }
+<<<<<<< HEAD
     function toggle_class(element, name, toggle) {
         element.classList[toggle ? 'add' : 'remove'](name);
     }
+=======
+>>>>>>> develop
     function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
         const e = document.createEvent('CustomEvent');
         e.initCustomEvent(type, bubbles, cancelable, detail);
@@ -186,6 +196,7 @@ var app = (function () {
     function set_current_component(component) {
         current_component = component;
     }
+<<<<<<< HEAD
     function get_current_component() {
         if (!current_component)
             throw new Error('Function called outside component initialization');
@@ -203,6 +214,8 @@ var app = (function () {
     function onMount(fn) {
         get_current_component().$$.on_mount.push(fn);
     }
+=======
+>>>>>>> develop
 
     const dirty_components = [];
     const binding_callbacks = [];
@@ -313,26 +326,13 @@ var app = (function () {
         render_callbacks = filtered;
     }
     const outroing = new Set();
-    let outros;
-    function group_outros() {
-        outros = {
-            r: 0,
-            c: [],
-            p: outros // parent group
-        };
-    }
-    function check_outros() {
-        if (!outros.r) {
-            run_all(outros.c);
-        }
-        outros = outros.p;
-    }
     function transition_in(block, local) {
         if (block && block.i) {
             outroing.delete(block);
             block.i(local);
         }
     }
+<<<<<<< HEAD
     function transition_out(block, local, detach, callback) {
         if (block && block.o) {
             if (outroing.has(block))
@@ -482,6 +482,8 @@ var app = (function () {
     function create_component(block) {
         block && block.c();
     }
+=======
+>>>>>>> develop
     function mount_component(component, target, anchor, customElement) {
         const { fragment, after_update } = component.$$;
         fragment && fragment.m(target, anchor);
@@ -659,6 +661,7 @@ var app = (function () {
         dispatch_dev('SvelteDOMSetData', { node: text, data });
         text.data = data;
     }
+<<<<<<< HEAD
     function validate_each_argument(arg) {
         if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
             let msg = '{#each} only iterates over array-like objects.';
@@ -668,29 +671,12 @@ var app = (function () {
             throw new Error(msg);
         }
     }
+=======
+>>>>>>> develop
     function validate_slots(name, slot, keys) {
         for (const slot_key of Object.keys(slot)) {
             if (!~keys.indexOf(slot_key)) {
                 console.warn(`<${name}> received an unexpected slot "${slot_key}".`);
-            }
-        }
-    }
-    function construct_svelte_component_dev(component, props) {
-        const error_message = 'this={...} of <svelte:component> should specify a Svelte component.';
-        try {
-            const instance = new component(props);
-            if (!instance.$$ || !instance.$set || !instance.$on || !instance.$destroy) {
-                throw new Error(error_message);
-            }
-            return instance;
-        }
-        catch (err) {
-            const { message } = err;
-            if (typeof message === 'string' && message.indexOf('is not a constructor') !== -1) {
-                throw new Error(error_message);
-            }
-            else {
-                throw err;
             }
         }
     }
@@ -714,6 +700,7 @@ var app = (function () {
         $inject_state() { }
     }
 
+<<<<<<< HEAD
     const search = {
         search: {
             width: 1664,
@@ -3192,12 +3179,61 @@ var app = (function () {
     			add_location(header, file, 41, 2, 988);
     			attr_dev(main, "class", "search_result");
     			add_location(main, file, 39, 0, 940);
+=======
+    /* src\App.svelte generated by Svelte v3.59.2 */
+
+    const file = "src\\App.svelte";
+
+    function create_fragment(ctx) {
+    	let main;
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t4;
+    	let t5_value = (/*number*/ ctx[0] || '') + "";
+    	let t5;
+    	let t6;
+    	let input;
+    	let t7;
+    	let button;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			main = element("main");
+    			h1 = element("h1");
+    			h1.textContent = "Fast Blog";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = "We are building our blog using FastAPI and Svelte!";
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text("response number: ");
+    			t5 = text(t5_value);
+    			t6 = space();
+    			input = element("input");
+    			t7 = space();
+    			button = element("button");
+    			button.textContent = "submit";
+    			attr_dev(h1, "class", "svelte-1hs5o9");
+    			add_location(h1, file, 19, 1, 371);
+    			add_location(p0, file, 20, 1, 392);
+    			add_location(p1, file, 21, 1, 452);
+    			add_location(input, file, 22, 1, 493);
+    			attr_dev(button, "type", "button");
+    			add_location(button, file, 23, 1, 529);
+    			add_location(main, file, 18, 0, 362);
+>>>>>>> develop
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
+<<<<<<< HEAD
     			append_dev(main, header);
     			append_dev(header, div);
     			append_dev(div, button0);
@@ -3235,11 +3271,31 @@ var app = (function () {
     					),
     					listen_dev(input, "input", /*input_input_handler*/ ctx[5]),
     					listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[6]), false, true, false, false)
+=======
+    			append_dev(main, h1);
+    			append_dev(main, t1);
+    			append_dev(main, p0);
+    			append_dev(main, t3);
+    			append_dev(main, p1);
+    			append_dev(p1, t4);
+    			append_dev(p1, t5);
+    			append_dev(main, t6);
+    			append_dev(main, input);
+    			set_input_value(input, /*inputNumber*/ ctx[1]);
+    			append_dev(main, t7);
+    			append_dev(main, button);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[3]),
+    					listen_dev(button, "click", /*click_handler*/ ctx[4], false, false, false, false)
+>>>>>>> develop
     				];
 
     				mounted = true;
     			}
     		},
+<<<<<<< HEAD
     		p: function update(new_ctx, [dirty]) {
     			ctx = new_ctx;
 
@@ -3258,13 +3314,23 @@ var app = (function () {
     			} else if (if_block) {
     				if_block.d(1);
     				if_block = null;
+=======
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*number*/ 1 && t5_value !== (t5_value = (/*number*/ ctx[0] || '') + "")) set_data_dev(t5, t5_value);
+
+    			if (dirty & /*inputNumber*/ 2 && input.value !== /*inputNumber*/ ctx[1]) {
+    				set_input_value(input, /*inputNumber*/ ctx[1]);
+>>>>>>> develop
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
+<<<<<<< HEAD
     			if (if_block) if_block.d();
+=======
+>>>>>>> develop
     			mounted = false;
     			run_all(dispose);
     		}
@@ -3272,6 +3338,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+<<<<<<< HEAD
     		id: create_fragment$1.name,
     		type: "component",
     		source: "",
@@ -3489,6 +3556,8 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+=======
+>>>>>>> develop
     		id: create_fragment.name,
     		type: "component",
     		source: "",
@@ -3501,6 +3570,7 @@ var app = (function () {
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
+<<<<<<< HEAD
     	const pages = [Home, Search]; // 모든 레이아웃
     	let page = 0; // 현재 레이아웃 인덱스
     	let pageState = null; // 임시로 영화 정보 저장
@@ -3520,6 +3590,21 @@ var app = (function () {
     		$$invalidate(1, pageState = null);
     		$$invalidate(0, page -= 1);
     	}
+=======
+    	let number;
+    	let inputNumber;
+
+    	const request = async endpoint => {
+    		const resp = await fetch(`http://localhost:8000/api${endpoint}`);
+    		const result = await resp.json();
+    		return result;
+    	};
+
+    	const getNumberFromBackend = async no => {
+    		const result = await request(`/post/${no}`);
+    		$$invalidate(0, number = result.data);
+    	};
+>>>>>>> develop
 
     	const writable_props = [];
 
@@ -3527,6 +3612,7 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
+<<<<<<< HEAD
     	$$self.$capture_state = () => ({
     		Home,
     		Search,
@@ -3540,13 +3626,36 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ('page' in $$props) $$invalidate(0, page = $$props.page);
     		if ('pageState' in $$props) $$invalidate(1, pageState = $$props.pageState);
+=======
+    	function input_input_handler() {
+    		inputNumber = this.value;
+    		$$invalidate(1, inputNumber);
+    	}
+
+    	const click_handler = () => getNumberFromBackend(inputNumber);
+
+    	$$self.$capture_state = () => ({
+    		number,
+    		inputNumber,
+    		request,
+    		getNumberFromBackend
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('number' in $$props) $$invalidate(0, number = $$props.number);
+    		if ('inputNumber' in $$props) $$invalidate(1, inputNumber = $$props.inputNumber);
+>>>>>>> develop
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
+<<<<<<< HEAD
     	return [page, pageState, pages, onSubmit, onBack];
+=======
+    	return [number, inputNumber, getNumberFromBackend, input_input_handler, click_handler];
+>>>>>>> develop
     }
 
     class App extends SvelteComponentDev {

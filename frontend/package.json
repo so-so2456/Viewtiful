@@ -12,7 +12,7 @@
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-terser": "^0.4.0",
-    "rollup": "^3.15.0",
+    "rollup": "^3.29.4",
     "rollup-plugin-css-only": "^4.3.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.1.2",
@@ -20,6 +20,6 @@
   },
   "dependencies": {
     "sirv-cli": "^2.0.0",
-    "svelte-spa-router": "^4.0.1"
+    "svelte-awesome": "^3.3.1"
   }
 }
