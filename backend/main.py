@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))  # 현재 파일 경로�
 
 app = FastAPI()  # FastAPI app 인스턴스를 생성
 
-app.mount("/public", StaticFiles(directory=os.path.join(BASE_DIR, "static/public")), name='static')  # /public 경로로 정적 파일 제공
+# app.mount("/public", StaticFiles(directory=os.path.join(BASE_DIR, "static/public")), name='static')  # /public 경로로 정적 파일 제공
 
 origins = ["http://localhost:8080",]  # 허용할 출처 목록 설정
 
@@ -144,7 +144,7 @@ async def popular_movies(limit: int = 3): # 가져올 개수 매개변수를 받
         return {"Error": "Failed to fetch data"}
 
     results_return = [] # 결과를 저장할 새로운 리스트 선언
-    results = response.json()['results']  # API로 호출한 결과값을 results 변수에 저장
+    results = response.json()['results'][:limit]  # API로 호출한 결과값을 results 변수에 저장
     for result in results:  # 반환받은 영화들을 하나씩 반복하면서 장르 id를 장르명으로 변환
 
         genre_names = []  # 장르명을 저장할 리스트 선언
