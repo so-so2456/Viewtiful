@@ -68,7 +68,7 @@
         <div class="title_section">
           <h2>{movieInfo.title}</h2>
           <span class="rating">평점: {movieInfo.vote_average}</span>
-          <span class="genre">장르: {['액션', '드라마'].join(', ')}</span>
+          <span class="genre">장르: {movieInfo.genre_names.join(', ')}</span>
         </div>
         <!-- 개봉일 -->
         <div class="release_date">
