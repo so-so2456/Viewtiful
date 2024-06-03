@@ -8,6 +8,7 @@
   
   // 영화 정보를 저장할 변수 선언
   let movieInfo = null;
+  let query = '';
 
   // 영화 정보를 API에서 가져오는 비동기 함수
   async function fetchMovieInfo(title) {
@@ -26,7 +27,8 @@
   // 컴포넌트가 마운트될 때 fetchMovieInfo 함수 호출
   onMount(() => {
     if (pageState) {
-      fetchMovieInfo(pageState);
+      movieInfo = pageState;
+      query = pageState.title;
     }
   });
 
@@ -40,7 +42,7 @@
   <header class="home__header">
     <!-- 타이틀과 Home 버튼 -->
     <div class="home_title">
-      <a href="#" on:click={onBack}>Home</a>
+      <button on:click={onBack}>Home</button>
       <h1>🎬 Viewtiful 🎬</h1>
     </div>
     <!-- 내비게이션 링크 -->
@@ -50,8 +52,8 @@
       <a href="#">Page</a>
     </nav>
     <!-- 검색바 -->
-    <form class="search-bar" on:submit|preventDefault={() => fetchMovieInfo(pageState)}>
-      <input bind:value={pageState} placeholder="영화 제목을 입력하세요">
+    <form class="search-bar" on:submit|preventDefault={() => fetchMovieInfo(query)}>
+      <input bind:value={query} placeholder="영화 제목을 입력하세요">
       <button type="submit">
         <img src={img_url} alt="검색 아이콘" class="search-button-icon">
       </button>
@@ -64,9 +66,9 @@
       <div class="movie_details">
         <!-- 영화 제목, 평점, 장르 섹션 -->
         <div class="title_section">
-          <h2>{movieInfo.original_title}</h2>
+          <h2>{movieInfo.title}</h2>
           <span class="rating">평점: {movieInfo.vote_average}</span>
-          <span class="genre">장르: {movieInfo.genre_names.join(', ')}</span>
+          <span class="genre">장르: {['액션', '드라마'].join(', ')}</span>
         </div>
         <!-- 개봉일 -->
         <div class="release_date">

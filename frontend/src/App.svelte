@@ -1,22 +1,41 @@
 <script>
-	import Router from 'svelte-spa-router';
-	import Home from './screens/Home.svelte';
-	import Search from './screens/Search.svelte';
-  import Navigator from './widgets/Navigator.svelte';
+    import Home from './screens/Home.svelte';
+    import Search from './screens/Search.svelte';
 
-	/*
-	use:link 속성을 사용한 경우는 항상 /# 문자가 선행되도록 경로가 만들어진다.
-	웹 페이지에서 어떤 경로가 /#으로 시작하면 브라우저는 이 경로를 하나의 페이지로 인식한다.
-	이러한 것을 해시 기반 라우팅(hash based routing)이라고 한다.
-	*/
-	const routes = {
-		'/': Home,
-		'/search': Search,
-	};
+    const pages = [Home, Search]; // 모든 레이아웃
+    let page = 0; // 현재 레이아웃 인덱스
+    let pageState = null; // 임시로 영화 정보 저장
+    
+    // Home에서 검색을 했을때 Search로 넘어가게 함
+    function onSubmit(values) {
+        if (page === pages.length - 1) {
+            pageState = values;
+        } else {
+			pageState = values;
+			page +=1;
+        }
+    }
 
+    // Search에서 Home으로 넘어가게 함
+    function onBack(values) {
+        pageState = null;
+        page -= 1;
+    }
 </script>
 
-<body>
-	<Navigator />
-	<Router {routes} />
-</body>
+<!-- https://svelte.dev/repl/8eb738732cf74edd86f680c53e6ba253?version=3.44.2 참고 -->
+<svelte:component 
+    this={pages[page]}
+    {onSubmit}
+    {onBack}
+    pageState={pageState}
+/>
+
+<style>
+	:global(body) {   
+		background-color: #1A1C23;  
+		margin: 0;
+		padding: 0; 
+		overflow-x: hidden
+	}
+</style>
