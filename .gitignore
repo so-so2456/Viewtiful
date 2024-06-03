@@ -5,3 +5,4 @@ frontend/public/build/
 frontend/.DS_Store
 backend/__pycache__/
 backend/static/
+backend/.DS_Store
