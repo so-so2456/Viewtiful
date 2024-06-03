@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 .python-version
 .env
-__pycache__/
-=======
-.env
->>>>>>> develop
+frontend/node_modules/
+frontend/public/build/
+frontend/.DS_Store
+backend/__pycache__/
+backend/static/
