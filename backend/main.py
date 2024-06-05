@@ -128,6 +128,35 @@ async def search(query: str):
     # API 응답 중 'results' 키의 값과 장르 id를 장르명으로 매핑한 결과값 반환
     return results_return
 
+@api_router.get("/movie_reviews/{movie_id}")
+# 영화 ID로 리뷰 정보를 가져오는 API
+async def movie_reviews(movie_id: int, limit: int = 5):
+    # 사용 방법: http://127.0.0.1:8000/api/movie_reviews/{movie_id}
+    
+    # 리뷰 정보를 가져올 URL
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}/reviews?page=1"
+    
+    # API 요청 헤더
+    headers = {
+        "accept": "application/json",
+        "Authorization": f"Bearer {api_token}"
+    }
+
+    async with httpx.AsyncClient() as client:  # 비동기 HTTP 클라이언트 생성
+        # API 요청을 보내고 응답 저장
+        response = await client.get(url, headers=headers)
+
+    if response.status_code != 200:
+        # 응답이 성공적이지 않은 경우
+        return {"Error": "Failed to fetch movie reviews"}
+
+    # 결과를 저장할 새로운 리스트 선언 및 API로 호출한 결과값을 results 변수에 저장
+    results = response.json()['results'][:limit]
+    
+    
+    return results
+
+
 @api_router.get("/popular_movies")  # /popular_movies 경로에 GET 요청을 처리하는 엔드포인트 정의
 #인기 영화들의 정보를 json 형식으로 반환하는 함수
 async def popular_movies(limit: int = 3): # 가져올 개수 매개변수를 받는 함수 정의
