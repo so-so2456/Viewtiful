@@ -8,6 +8,7 @@
   
   // 영화 정보를 저장할 변수 선언
   let movieInfo = null;
+  let reviews = [];
   let query = '';
 
   // 영화 정보를 API에서 가져오는 비동기 함수
@@ -18,9 +19,25 @@
       const data = await response.json();
       // 첫 번째 결과를 movieInfo 변수에 저장
       movieInfo = data[0];
+      // 영화 ID로 리뷰를 가져오는 함수 호출
+      await fetchReviews(movieInfo.id);
     } catch (error) {
       // 에러 발생 시 콘솔에 에러 메시지 출력
       console.error('Error fetching movie info:', error);
+    }
+  }
+
+  // 영화 리뷰를 API에서 가져오는 비동기 함수
+  async function fetchReviews(movieId) {
+    try {
+      // 영화 ID를 사용하여 API 요청
+      const response = await fetch(`http://localhost:8000/api/movie_reviews/${movieId}`);
+      const data = await response.json();
+      // 리뷰 데이터를 reviews 변수에 저장
+      reviews = data;
+    } catch (error) {
+      // 에러 발생 시 콘솔에 에러 메시지 출력
+      console.error('Error fetching movie reviews:', error);
     }
   }
 
@@ -29,6 +46,7 @@
     if (pageState) {
       movieInfo = pageState;
       query = pageState.title;
+      fetchReviews(pageState.id);
     }
   });
 
@@ -78,6 +96,25 @@
         <!-- 영화 개요 -->
         <h3 class="summary_heading">개요</h3>
         <p>{movieInfo.overview}</p>
+        <hr>
+        <!-- 리뷰 섹션 -->
+        <h3 class="reviews_heading">리뷰</h3>
+        <section class="reviews">
+          {#if reviews.length > 0}
+            <ul class="reviews_list">
+              {#each reviews as review}
+                <li class="review_item">
+                  <div class="review_text">
+                    <h4 class="review_author">{review.author}</h4>
+                    <p class="review_content">{review.content}</p>
+                  </div>
+                </li>
+              {/each}
+            </ul>
+          {:else}
+            <p>리뷰가 없습니다.</p>
+          {/if}
+        </section>
       </div>
       <!-- 영화 포스터 -->
       <div class="movie_poster">
@@ -221,5 +258,59 @@
   .summary_heading { /* 개요 텍스트 스타일 */
     font-size: 2em;
     margin-bottom: 10px;
+  }
+
+  .reviews { /* 리뷰 섹션 스타일 */
+    max-height: 300px; /* 스크롤이 가능하게 하기 위해 최대 높이를 설정 */
+    overflow-y: auto; /* 스크롤이 가능하게 설정 */
+    padding: 10px;
+    border-top: 1px solid #999;
+  }
+
+  /* 스크롤바 스타일링 시작 */
+  .reviews::-webkit-scrollbar {
+    width: 3px; /* 스크롤바의 너비 */
+  }
+
+  .reviews::-webkit-scrollbar-thumb {
+    background: #ccc; /* 스크롤바의 색상 */
+    border-radius: 10px; /* 스크롤바의 모서리를 둥글게 */
+  }
+
+  .reviews::-webkit-scrollbar-track {
+    background: #1A1C23; /* 스크롤바 트랙의 색상 */
+  }
+
+  .reviews_heading { /* 리뷰 헤딩 스타일 */
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .reviews_list { /* 리뷰 리스트 스타일 */
+    list-style: none;
+    padding: 0;
+  }
+
+  .review_item { /* 리뷰 아이템 스타일 */
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .review_text { /* 리뷰 텍스트 스타일 */
+    flex: 1;
+  }
+
+  .review_author { /* 리뷰 작성자 스타일 */
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .review_content { /* 리뷰 내용 스타일 */
+    font-size: 1em;
+    color: #ccc;
   }
 </style>
