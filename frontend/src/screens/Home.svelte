@@ -43,7 +43,9 @@
 	<section class="home__search__bar">
 		<Icon class="home__search__bar__film" data={film} scale="2" color="#1A1C23"/>
 		<input class="home__search__bar__input" type="text" bind:value={query}>
-		<Icon class="home__search__bar__search" data={search} scale="2" color="#1A1C23"/>
+		<button class="home__search__bar__search_button"on:click={() => {onSubmit(preResults[0])}}>
+			<Icon class="home__search__bar__search" data={search} scale="2" color="#1A1C23"/>
+		</button>
 	</section>
 	<section class="home__search__result">
 		{#await searchRequest}
@@ -83,6 +85,12 @@
 </section>
 </main>
 <style>
+	.home__search__bar__search_button {
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+	}
 	.home__search__result_container {
 		display: flex;
 		justify-content: space-between;
@@ -103,13 +111,6 @@
 		color: white;
 		font-weight: 400;
 		margin-bottom: 40px;
-	}
-	.home__navigator {
-		margin: 20px 0 10px 0;
-	}
-	.home__navigator > a {
-		text-decoration: none;
-		color: white;
 	}
 	.home__search__bar__input {
 		border: none;
@@ -141,6 +142,7 @@
 		color: #A56CEF;
 		font-size: 48px;
 		margin: 40px 0px 10px 0px;
+		white-space: nowrap;
 	}
 	.home__header__title > h5 {
 		color: grey;
@@ -169,10 +171,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-	}
-	.home__navigator {
-		display: flex;
-		gap: 48px;
 	}
 	.home__popular_movie__container {
 		display: flex;
