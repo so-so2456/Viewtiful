@@ -33,11 +33,6 @@
 
 <!-- class 이름이 곧 주석 -->
 <main class="home">
-<nav class="home__navigator">
-	<a href="#" class="home__navigator__page1">Page</a>
-	<a href="#" class="home__navigator__movie">Movie</a>
-	<a href="#" class="home__navigator__page2">Page</a>
-</nav>
 <header class="home__header">
 	<section class="home__header__title">
 		<h1>🎬 Viewtiful 🎬</h1>
@@ -137,6 +132,7 @@
 		padding: 10px 30px;
 	}
 	.home__header__title {
+		margin-top: 32px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

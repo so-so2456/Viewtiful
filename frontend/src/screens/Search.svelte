@@ -63,12 +63,6 @@
       <button on:click={onBack}>Home</button>
       <h1>🎬 Viewtiful 🎬</h1>
     </div>
-    <!-- 내비게이션 링크 -->
-    <nav class="nav_links">
-      <a href="#">Page</a>
-      <a href="#">Movie</a>
-      <a href="#">Page</a>
-    </nav>
     <!-- 검색바 -->
     <form class="search-bar" on:submit|preventDefault={() => fetchMovieInfo(query)}>
       <input bind:value={query} placeholder="영화 제목을 입력하세요">
@@ -77,7 +71,6 @@
       </button>
     </form>
   </header>
-
   <!-- 영화 정보 섹션 (영화 정보가 존재할 경우에만 표시) -->
   {#if movieInfo}
     <section class="movie_info">
