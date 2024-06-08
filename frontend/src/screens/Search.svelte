@@ -106,7 +106,7 @@
                 <li class="review_item">
                   <div class="review_text">
                     <h4 class="review_author">{review.author}</h4>
-                    <p class="review_content">{review.content}</p>
+                    <p class="review_content">{@html review.content}</p>
                   </div>
                 </li>
               {/each}
