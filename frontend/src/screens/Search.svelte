@@ -4,6 +4,10 @@
   import arrowLeft from 'svelte-awesome/icons/arrowLeft'; // 왼쪽 화살표 아이콘
   import Icon from 'svelte-awesome/components/Icon.svelte';
 
+  // api 주소
+  const API = process.env.api;
+	console.log(API.API_URL);
+
   // 부모 컴포넌트에서 전달받은 함수 및 변수
   export let onBack;
   export let pageState;
@@ -17,7 +21,7 @@
   async function fetchMovieInfo(title) {
     try {
       // 영화 제목을 쿼리로 사용하여 API 요청
-      const response = await fetch(`http://localhost:8000/api/search?query=${title}`);
+      const response = await fetch(`${API.API_URL}/api/search?query=${title}`);
       const data = await response.json();
       // 첫 번째 결과를 movieInfo 변수에 저장
       movieInfo = data[0];
@@ -37,7 +41,7 @@
   async function fetchReviews(movieId) {
     try {
       // 영화 ID를 사용하여 API 요청
-      const response = await fetch(`http://localhost:8000/api/movie_reviews/${movieId}`);
+      const response = await fetch(`${API.API_URL}/api/movie_reviews/${movieId}`);
       const data = await response.json();
       // 리뷰 데이터를 reviews 변수에 저장
       reviews = data;
