@@ -1,8 +1,6 @@
 <script>
   // Svelte 컴포넌트가 로드될 때 onMount를 사용하여 초기화 작업 수행
   import { onMount } from 'svelte';
-  import arrowLeft from 'svelte-awesome/icons/arrowLeft'; // 왼쪽 화살표 아이콘
-  import Icon from 'svelte-awesome/components/Icon.svelte';
 
   // 부모 컴포넌트에서 전달받은 함수 및 변수
   export let onBack;
@@ -56,8 +54,9 @@
     }
   });
 
-  // 검색 아이콘 이미지 URL
-  const img_url = "https://cdn-icons-png.freepik.com/512/2311/2311526.png";
+  // 이미지 URL
+  const back = "https://cdn-icons-png.freepik.com/256/189/189254.png"
+  const search = "https://cdn-icons-png.freepik.com/512/2311/2311526.png";
 </script>
 
 <!-- 메인 컨텐츠 영역 -->
@@ -66,14 +65,16 @@
   <header class="home__header">
     <!-- 타이틀과 Home 버튼 -->
     <div class="home_title">
-      <button on:click={onBack}><Icon data={arrowLeft} scale="2" color="#FFFFFF"/></button>
+      <button on:click={onBack}>
+        <img src={back} alt="뒤로가기" class="back-button-icon" width="30" height="30" color="white">
+      </button>
       <h1>🎬 Viewtiful 🎬</h1>
     </div>
     <!-- 검색바 -->
     <form class="search-bar" on:submit|preventDefault={() => fetchMovieInfo(query)}>
       <input bind:value={query} placeholder="영화 제목을 입력하세요">
       <button type="submit">
-        <img src={img_url} alt="검색 아이콘" class="search-button-icon">
+        <img src={search} alt="검색 아이콘" class="search-button-icon" width="30" height="30">
       </button>
     </form>
   </header>
@@ -133,6 +134,9 @@
     color: white;
     margin: 0px;
     font-family: Arial, sans-serif;
+  }
+  .back-button-icon {
+    cursor: pointer;
   }
 
   .movie_error {

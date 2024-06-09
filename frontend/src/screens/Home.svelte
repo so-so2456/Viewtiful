@@ -1,9 +1,4 @@
 <script>
-	// 아이콘
-	import search from 'svelte-awesome/icons/search';
-	import film from 'svelte-awesome/icons/film';
-	import Icon from 'svelte-awesome/components/Icon.svelte';
-
 	export let onSubmit; // App.svelte에서 정의한 onSubmit 함수
 
 	// 이미지 외부 링크
@@ -29,6 +24,9 @@
 	// 변수인 query에 의해 값이 변경되므로 $ statement 사용
 	$: searchRequest = searchMoviesWithQuery(query);
 
+	const search = "https://cdn-icons-png.freepik.com/512/2311/2311526.png";
+	const film = "https://cdn-icons-png.freepik.com/256/1179/1179120.png"
+
 </script>
 
 <!-- class 이름이 곧 주석 -->
@@ -41,10 +39,10 @@
 </header>
 <form class="home__search" on:submit|preventDefault={() => {onSubmit(preResults[0])}}>
 	<section class="home__search__bar">
-		<Icon class="home__search__bar__film" data={film} scale="2" color="#1A1C23"/>
+		<img src={film} alt="영화" class="film-icon" width="30" height="30">
 		<input class="home__search__bar__input" type="text" bind:value={query}>
 		<button class="home__search__bar__search_button"on:click={() => {onSubmit(preResults[0])}}>
-			<Icon class="home__search__bar__search" data={search} scale="2" color="#1A1C23"/>
+			<img src={search} alt="영화 검색" class="search-icon" width="30" height="30">
 		</button>
 	</section>
 	<section class="home__search__result">
@@ -85,6 +83,9 @@
 </section>
 </main>
 <style>
+	.search-icon {
+		cursor: pointer;
+	}
 	.home__search__bar__search_button {
 		margin: 0;
 		padding: 0;
@@ -97,12 +98,14 @@
 		align-items: center;
 		padding: 10px 0;
 		border-bottom: solid 1px grey;
+		cursor: pointer;
 	}
 	.home__popular_movie__container__movie {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		cursor: pointer;
 	}
 	.home__popular_movie {
 		margin: 64px 0;
