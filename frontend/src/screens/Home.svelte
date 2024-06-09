@@ -6,19 +6,15 @@
 
 	export let onSubmit; // App.svelte에서 정의한 onSubmit 함수
 
-	// api 주소
-	const API = process.env.api;
-	console.log(API.API_URL);
-
 	// 이미지 외부 링크
 	const img_url = "https://image.tmdb.org/t/p/w185";
 	
 	// 인기 영화 api 호출
 	async function getPopularMovies() {
-		const url = `${API.API_URL}/api/popular_movies`;
+		const url = `https://viewtiful-e9ffcb9f81a6.herokuapp.com/api/popular_movies`;
 		return await fetch(url).then((res) => res.json());
 	}
-	
+
 	let moviesRequest = getPopularMovies();
 
 	let query = ''; // 검색어
@@ -26,7 +22,7 @@
 
 	// query에 따른 영화 검색 api 호출
 	async function searchMoviesWithQuery(query) {
-	const url = `${API.API_URL}/api/search?query=${query}`;
+	const url = `https://viewtiful-e9ffcb9f81a6.herokuapp.com/api/search?query=${query}`;
 	return await fetch(url).then((res) => res.json())
 	.then((data) => preResults = data);
 	}
