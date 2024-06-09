@@ -14,7 +14,7 @@ app = FastAPI()  # FastAPI app 인스턴스를 생성
 
 # app.mount("/public", StaticFiles(directory=os.path.join(BASE_DIR, "static/public")), name='static')  # /public 경로로 정적 파일 제공
 
-origins = ["http://localhost:8080", "https://viewtiful-e9ffcb9f81a6.herokuapp.com"]  # 허용할 출처 목록 설정
+origins = ["http://localhost:8080", "https://viewtiful-delta.vercel.app"]  # 허용할 출처 목록 설정
 
 app.add_middleware(  # 프론트엔드와 백엔드의 출처가 다르기 때문에 CORS 설정
     CORSMiddleware,  # CORS 미들웨어 추가
