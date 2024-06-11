@@ -17,13 +17,19 @@
 ## Language
 
 프론트엔드는 Svelte(JS 기반)
+
 ![image](https://github.com/so-so2456/Viewtiful/assets/65073648/12ae2f0b-275b-476c-bf0a-6040d4bb10d8)
+
 No Virtual Dom!! 🫢
+
 스벨트는 실행 시점이 아닌 빌드 시점에 모든 코드들을 바닐라 js로 변경
 
 백엔드는 FastAPI(python 기반)
+
 ![image](https://github.com/so-so2456/Viewtiful/assets/65073648/8c852446-3f0a-4725-977e-ebd1a2f8fd36)
+
 FastAPI >> Flask (성능도 좋고, 만들기도 쉬우니 "Fast"API)
+
 Swagger UI 등 자동 문서화("{url}/docs")
 
 ## Deployment
