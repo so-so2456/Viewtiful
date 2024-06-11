@@ -77,17 +77,26 @@ httpx = "^0.27.0"
 ## Command
 
 ```
-git clone https://github.com/so-so2456/Viewtiful.git
+$ git clone https://github.com/so-so2456/Viewtiful.git
+$ cd Viewtiful
+```
 
-// frontend(you should install npm!!)
+Frontend
+
+**(you should install npm!!)**
+
+```
 $ cd frontend
 $ npm install
 $ npm run dev
-// http://localhost:8080
+```
 
-//backend(you should install python!!)
+Backend
+
+**(you should install python!!)**
+
+```
 $ cd backend
 $ pip install -r requirements.txt
 $ uvicorn main:app --reload
-// http://localhost:8000
 ```
