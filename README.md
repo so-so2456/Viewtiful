@@ -24,6 +24,8 @@ No Virtual Dom!! 🫢
 
 스벨트는 실행 시점이 아닌 빌드 시점에 모든 코드들을 바닐라 js로 변경
 
+---
+
 백엔드는 FastAPI(python 기반)
 
 ![image](https://github.com/so-so2456/Viewtiful/assets/65073648/8c852446-3f0a-4725-977e-ebd1a2f8fd36)
@@ -72,7 +74,7 @@ python-dotenv = "^1.0.1"
 httpx = "^0.27.0"
 ```
 
-## Command
+## Command
 
 ```
 git clone https://github.com/so-so2456/Viewtiful.git
