@@ -1,46 +1,85 @@
 # Viewtiful
 
-한국 영화의 정보를 알려주는 위키 사이트
+영화의 정보를 알려주는 위키 사이트
 
-- 팀장:
+## Function
 
-  초기 세팅 및 팀원의 pull request 검토 및 승인
-  전체적인 프로젝트 관리 및 구현해야할 기능들 팀원에게 할당
+1. 영화 제목을 검색하여 해당 영화의 정보를 보여줍니다.
+2. 인기 영화 Top 3를 보여주며, 클릭하면 해당 영화의 정보를 보여줍니다.
+3. 영화 정보는 제목, 포스터, 평점, 장르, 개봉일, 개요, 리뷰입니다.
 
-- 프로젝트 주제:
+## Screen
 
-  영화DB API를 이용한 영화 위키 사이트
-  팀을 FE와 BE로 나누어 역할 할당
+![image](https://github.com/so-so2456/Viewtiful/assets/65073648/c8e05598-3ade-415f-9b99-e6c1b9829c7f)
+<img width="452" alt="image" src="https://github.com/so-so2456/Viewtiful/assets/65073648/d8f677a0-1bd2-4374-95eb-b6c1e215fa0c">
+![image](https://github.com/so-so2456/Viewtiful/assets/65073648/88853935-0364-4209-a0dd-3cfcf3769b8a)
 
-- README.md:
+## Language
 
-  프로젝트 소개, 패키지 버전 등 기술 예정
-  결과화면 스크린샷
+프론트엔드는 Svelte(JS 기반)
+![image](https://github.com/so-so2456/Viewtiful/assets/65073648/12ae2f0b-275b-476c-bf0a-6040d4bb10d8)
+No Virtual Dom!! 🫢
+스벨트는 실행 시점이 아닌 빌드 시점에 모든 코드들을 바닐라 js로 변경
 
-- 보고서:
+백엔드는 FastAPI(python 기반)
+![image](https://github.com/so-so2456/Viewtiful/assets/65073648/8c852446-3f0a-4725-977e-ebd1a2f8fd36)
+FastAPI >> Flask (성능도 좋고, 만들기도 쉬우니 "Fast"API)
+Swagger UI 등 자동 문서화("{url}/docs")
 
-  추후 기술
+## Deployment
 
-# 협업 시 규칙
+Heroku(backend) & Vercel(frontend)
 
-- 브랜치 전략 - Git Flow
+[Viewtiful](https://viewtiful-eta.vercel.app)
 
-  - main(“master” 아님 주의)
-  - develop
-  - feature(구현 기능 이름을 브랜치 이름으로)
-  - release
-  - hotfix
+## Dependency
 
-- 코드 주석:
+```
+// frontend
+$ npm --version
+10.1.0
 
-  주석을 상세히 달 것을 요함
+"devDependencies": {
+  "@rollup/plugin-commonjs": "^24.0.0",
+  "@rollup/plugin-node-resolve": "^15.0.0",
+  "@rollup/plugin-replace": "^5.0.7",
+  "@rollup/plugin-terser": "^0.4.0",
+  "dotenv": "^16.4.5",
+  "rollup": "^3.15.0",
+  "rollup-plugin-css-only": "^4.3.0",
+  "rollup-plugin-livereload": "^2.0.0",
+  "rollup-plugin-svelte": "^7.1.2",
+  "svelte": "^3.55.0"
+},
+"dependencies": {
+  "sirv-cli": "^2.0.0"
+}
 
-- 커밋 메세지 규칙:
 
-  아래 사이트 참고
+// backend
+python = "^3.12"
+fastapi = "^0.111.0"
+uvicorn = "^0.29.0"
+jinja2 = "^3.1.4"
+aiofiles = "^23.2.1"
+python-dotenv = "^1.0.1"
+httpx = "^0.27.0"
+```
 
-  [Git 커밋 메시지 규칙](https://velog.io/@chojs28/Git-%EC%BB%A4%EB%B0%8B-%EB%A9%94%EC%8B%9C%EC%A7%80-%EA%B7%9C%EC%B9%99)
+## Command
 
-- 이슈:
+```
+git clone https://github.com/so-so2456/Viewtiful.git
 
-  할당 완료, 참고 바람
+// frontend(you should install npm!!)
+$ cd frontend
+$ npm install
+$ npm run dev
+// http://localhost:8080
+
+//backend(you should install python!!)
+$ cd backend
+$ pip install -r requirements.txt
+$ uvicorn main:app --reload
+// http://localhost:8000
+```
